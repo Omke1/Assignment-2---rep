@@ -342,6 +342,7 @@ ax.plot(train_loss_list,label="Train Loss")
 ax.plot(val_loss_list,label = "Validation Loss")
 ax.legend()
 disfig = plt.show(block=True)
+plt.savefig('foo.png')
 
 if ddp:
     destroy_process_group()
