@@ -339,7 +339,7 @@ while True:
 if ddp:
     destroy_process_group()
 
-import matplotlib as plt
+import matplotlib.pyplot as plt
 
 fig,ax = plt.subplots()
 ax.plot(train_loss_list,label="Train Loss")
