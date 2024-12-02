@@ -334,15 +334,13 @@ while True:
 
     # termination conditions
     if iter_num > max_iters:
+        import matplotlib.pyplot as plt
+        fig,ax = plt.subplots()
+        ax.plot(train_loss_list,label="Train Loss")
+        ax.plot(val_loss_list,label = "Validation Loss")
+        ax.legend()
+        plt.show()
         break
 
 if ddp:
     destroy_process_group()
-
-import matplotlib.pyplot as plt
-
-fig,ax = plt.subplots()
-ax.plot(train_loss_list,label="Train Loss")
-ax.plot(val_loss_list,label = "Validation Loss")
-ax.legend()
-plt.show()
