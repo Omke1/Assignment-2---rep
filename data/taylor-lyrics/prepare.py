@@ -4,9 +4,9 @@ import requests
 import numpy as np
 
 # download the tiny shakespeare dataset
-input_file_path = os.path.join(os.path.dirname(__file__), 'input.txt')
+input_file_path = os.path.join(os.path.dirname(__file__), 'input1.txt')
 if not os.path.exists(input_file_path):
-    data_url = 'https://github.com/irenetrampoline/taylor-swift-lyrics/blob/master/all_tswift_lyrics.txt'
+    data_url = 'https://raw.githubusercontent.com/irenetrampoline/taylor-swift-lyrics/blob/master/all_tswift_lyrics.txt'
     with open(input_file_path, 'w') as f:
         f.write(requests.get(data_url).text)
 
