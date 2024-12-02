@@ -78,6 +78,8 @@ exec(open('configurator.py').read()) # overrides from command line or config fil
 config = {k: globals()[k] for k in config_keys} # will be useful for logging
 # -----------------------------------------------------------------------------
 
+train_loss_list, val_loss_list = [], []
+
 # various inits, derived attributes, I/O setup
 ddp = int(os.environ.get('RANK', -1)) != -1 # is this a ddp run?
 if ddp:
@@ -262,6 +264,8 @@ while True:
     # evaluate the loss on train/val sets and write checkpoints
     if iter_num % eval_interval == 0 and master_process:
         losses = estimate_loss()
+        train_loss_list.append(losses['train'])
+        val_loss_list.append(losses['val'])
         print(f"step {iter_num}: train loss {losses['train']:.4f}, val loss {losses['val']:.4f}")
         if wandb_log:
             wandb.log({
@@ -334,3 +338,11 @@ while True:
 
 if ddp:
     destroy_process_group()
+
+import matplotlib as plt
+
+fig,ax = plt.subplots()
+ax.plot(train_loss_list,label="Train Loss")
+ax.plot(val_loss_list,label = "Validation Loss")
+ax.legend()
+plt.show()
