@@ -341,7 +341,8 @@ fig,ax = plt.subplots()
 ax.plot(train_loss_list,label="Train Loss")
 ax.plot(val_loss_list,label = "Validation Loss")
 ax.legend()
-plt.show()
+disfig = plt.show()
+print(disfig)
 
 if ddp:
     destroy_process_group()
